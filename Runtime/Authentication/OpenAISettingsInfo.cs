@@ -106,7 +106,7 @@ namespace OpenAI
 
         public string BaseRequest { get; }
 
-        public string BaseRequestUrlFormat { get; }
+        public string BaseRequestUrlFormat { get; set; }
 
         public bool UseOAuthAuthentication { get; }
 
