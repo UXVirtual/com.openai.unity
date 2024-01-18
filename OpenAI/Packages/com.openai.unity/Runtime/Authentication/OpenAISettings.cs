@@ -102,6 +102,9 @@ namespace OpenAI
 
         public OpenAISettingsInfo Info { get; }
 
-        public string BaseRequestUrlFormat => Info.BaseRequestUrlFormat;
+        public string BaseRequestUrlFormat {
+            get => Info.BaseRequestUrlFormat;
+            set => Info.BaseRequestUrlFormat = value;
+        }
     }
 }
