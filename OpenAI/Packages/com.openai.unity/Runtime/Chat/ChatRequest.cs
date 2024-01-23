@@ -29,8 +29,17 @@ namespace OpenAI.Chat
             double? temperature = null,
             double? topP = null,
             int? topLogProbs = null,
-            string user = null)
-            : this(messages, model, frequencyPenalty, logitBias, maxTokens, number, presencePenalty, responseFormat, number, stops, temperature, topP, topLogProbs, user)
+            string user = null,
+            string? instructionTemplate = null,
+            string? instructionTemplateStr = null,
+            float? topK = 0f,
+            bool? useSamplers = false,
+            string? mode = null,
+            string? preset = null,
+            string? context = null,
+            string? name1 = null,
+            string? name2 = null)
+            : this(messages, model, frequencyPenalty, logitBias, maxTokens, number, presencePenalty, responseFormat, number, stops, temperature, topP, topLogProbs, user, instructionTemplate, instructionTemplateStr, topK, useSamplers, mode, preset, context, name1, name2)
         {
             var tooList = tools?.ToList();
 
@@ -133,6 +142,33 @@ namespace OpenAI.Chat
         /// <param name="user">
         /// A unique identifier representing your end-user, which can help OpenAI to monitor and detect abuse.
         /// </param>
+        /// <param name="instructionTemplate">
+        /// The instruction template name. E.g. "Alpaca".
+        /// </param>
+        /// <param name="instructionTemplateStr">
+        /// The string value of a custom instruction template. Is used instead of instructionTemplate for custom models.
+        /// </param>
+        /// <param name="topK">
+        /// Defaults to 0.
+        /// </param>
+        /// <param name="useSamplers">
+        /// Whether or not to use Logits after sampling parameters.
+        /// </param>
+        /// <param name="mode">
+        /// The mode used during generation. E.g. "chat", "chat-instruct" or "instruct"
+        /// </param>
+        /// <param name="preset">
+        /// The preset to use during generation. E.g. "simple-1" Overrides all other provided parameters.
+        /// </param>
+        /// <param name="context">
+        /// The system context to use during generation. This is used as part of all generations and precedes the instruction.
+        /// </param>
+        /// <param name="name1">
+        /// The name of the user speaking to the bot. Is injected into some instruction templates.
+        /// </param>
+        /// <param name="name2">
+        /// The name of the bot. Is injected into some instruction templates.
+        /// </param>
         [Preserve]
         public ChatRequest(
             IEnumerable<Message> messages,
@@ -148,7 +184,16 @@ namespace OpenAI.Chat
             double? temperature = null,
             double? topP = null,
             int? topLogProbs = null,
-            string user = null)
+            string user = null,
+            string? instructionTemplate = null,
+            string? instructionTemplateStr = null,
+            float? topK = null,
+            bool? useSamplers = null,
+            string? mode = null,
+            string? preset = null,
+            string? context = null,
+            string? name1 = null,
+            string? name2 = null)
         {
             Messages = messages?.ToList();
 
@@ -171,6 +216,15 @@ namespace OpenAI.Chat
             LogProbs = topLogProbs.HasValue ? topLogProbs.Value > 0 : null;
             TopLogProbs = topLogProbs;
             User = user;
+            InstructionTemplate = instructionTemplate;
+            InstructionTemplateStr = instructionTemplateStr;
+            TopK = topK;
+            UseSamplers = useSamplers;
+            Mode = mode;
+            Preset = preset;
+            Context = context;
+            Name1 = name1;
+            Name2 = name2;
         }
 
         /// <summary>
@@ -349,6 +403,69 @@ namespace OpenAI.Chat
         [Preserve]
         [JsonProperty("user")]
         public string User { get; }
+
+        /// <summary>
+        /// The instruction template name. E.g. "Alpaca".
+        /// </summary>
+        [Preserve]
+        [JsonProperty("instruction_template")]
+        public string InstructionTemplate { get; }
+
+        /// <summary>
+        /// The string value of a custom instruction template. Is used instead of instructionTemplate for custom models.
+        /// </summary>
+        [Preserve]
+        [JsonProperty("instruction_template_str")]
+        public string InstructionTemplateStr { get; }
+
+        /// <summary>
+        /// Defaults to 0.
+        /// </summary>
+        [Preserve]
+        [JsonProperty("top_k")]
+        public float? TopK { get; }
+
+        /// <summary>
+        /// The mode used during generation. E.g. "chat", "chat-instruct" or "instruct"
+        /// </summary>
+        [Preserve]
+        [JsonProperty("mode")]
+        public string Mode { get; }
+
+        /// <summary>
+        /// Whether or not to use Logits after sampling parameters.
+        /// </summary>
+        [Preserve]
+        [JsonProperty("use_samplers")]
+        public bool? UseSamplers { get; }
+
+        /// <summary>
+        /// The preset to use during generation. E.g. "simple-1" Overrides all other provided parameters.
+        /// </summary>
+        [Preserve]
+        [JsonProperty("preset")]
+        public string Preset { get; }
+
+        /// <summary>
+        /// The system context to use during generation. This is used as part of all generations and precedes the instruction.
+        /// </summary>
+        [Preserve]
+        [JsonProperty("context")]
+        public string Context { get; }
+
+        /// <summary>
+        /// The name of the user speaking to the bot. Is injected into some instruction templates.
+        /// </summary>
+        [Preserve]
+        [JsonProperty("name1")]
+        public string Name1 { get; }
+
+        /// <summary>
+        /// The name of the bot. Is injected into some instruction templates.
+        /// </summary>
+        [Preserve]
+        [JsonProperty("name2")]
+        public string Name2 { get; }
 
         /// <summary>
         /// Pass "auto" to let the OpenAI service decide, "none" if none are to be called,
