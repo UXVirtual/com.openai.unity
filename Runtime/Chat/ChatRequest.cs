@@ -30,16 +30,17 @@ namespace OpenAI.Chat
             double? topP = null,
             int? topLogProbs = null,
             string user = null,
-            string? instructionTemplate = null,
-            string? instructionTemplateStr = null,
-            float? topK = 0f,
+            string instructionTemplate = null,
+            string instructionTemplateStr = null,
             bool? useSamplers = false,
-            string? mode = null,
-            string? preset = null,
-            string? context = null,
-            string? name1 = null,
-            string? name2 = null)
-            : this(messages, model, frequencyPenalty, logitBias, maxTokens, number, presencePenalty, responseFormat, seed, stops, temperature, topP, topLogProbs, user, instructionTemplate, instructionTemplateStr, topK, useSamplers, mode, preset, context, name1, name2)
+            string mode = null,
+            string preset = null,
+            string context = null,
+            string name1 = null,
+            string name2 = null,
+            string greeting = null,
+            double? repetitionPenalty = null)
+            : this(messages, model, frequencyPenalty, logitBias, maxTokens, number, presencePenalty, responseFormat, seed, stops, temperature, topP, topLogProbs, user, instructionTemplate, instructionTemplateStr, useSamplers, mode, preset, context, name1, name2, greeting, repetitionPenalty)
         {
             var toolList = tools?.ToList();
 
@@ -142,9 +143,6 @@ namespace OpenAI.Chat
         /// <param name="instructionTemplateStr">
         /// The string value of a custom instruction template. Is used instead of instructionTemplate for custom models.
         /// </param>
-        /// <param name="topK">
-        /// Defaults to 0.
-        /// </param>
         /// <param name="useSamplers">
         /// Whether or not to use Logits after sampling parameters.
         /// </param>
@@ -163,6 +161,13 @@ namespace OpenAI.Chat
         /// <param name="name2">
         /// The name of the bot. Is injected into some instruction templates.
         /// </param>
+        /// <param name="greeting">
+        /// The greeting that will be added to the context during the first generation.
+        /// </param>
+        /// <param name="repetitionPenalty">
+        /// The pentalty for repeating tokens.
+        /// Defaults to 0
+        /// </param>
         [Preserve]
         public ChatRequest(
             IEnumerable<Message> messages,
@@ -179,15 +184,16 @@ namespace OpenAI.Chat
             double? topP = null,
             int? topLogProbs = null,
             string user = null,
-            string? instructionTemplate = null,
-            string? instructionTemplateStr = null,
-            float? topK = null,
+            string instructionTemplate = null,
+            string instructionTemplateStr = null,
             bool? useSamplers = null,
-            string? mode = null,
-            string? preset = null,
-            string? context = null,
-            string? name1 = null,
-            string? name2 = null)
+            string mode = null,
+            string preset = null,
+            string context = null,
+            string name1 = null,
+            string name2 = null,
+            string greeting = null,
+            double? repetitionPenalty = null)
         {
             Messages = messages?.ToList();
 
@@ -212,13 +218,14 @@ namespace OpenAI.Chat
             User = user;
             InstructionTemplate = instructionTemplate;
             InstructionTemplateStr = instructionTemplateStr;
-            TopK = topK;
             UseSamplers = useSamplers;
             Mode = mode;
             Preset = preset;
             Context = context;
             Name1 = name1;
             Name2 = name2;
+            Greeting = greeting;
+            RepetitionPenalty = repetitionPenalty;
         }
 
         /// <summary>
@@ -413,13 +420,6 @@ namespace OpenAI.Chat
         public string InstructionTemplateStr { get; }
 
         /// <summary>
-        /// Defaults to 0.
-        /// </summary>
-        [Preserve]
-        [JsonProperty("top_k")]
-        public float? TopK { get; }
-
-        /// <summary>
         /// The mode used during generation. E.g. "chat", "chat-instruct" or "instruct"
         /// </summary>
         [Preserve]
@@ -460,6 +460,21 @@ namespace OpenAI.Chat
         [Preserve]
         [JsonProperty("name2")]
         public string Name2 { get; }
+
+        /// <summary>
+        /// The greeting that will be added to the context during the first generation.
+        /// </summary>
+        [Preserve]
+        [JsonProperty("greeting")]
+        public string Greeting { get; }
+
+        /// <summary>
+        /// The pentalty for repeating tokens.
+        /// Defaults to 0
+        /// </summary>
+        [Preserve]
+        [JsonProperty("repetition_penalty")]
+        public double? RepetitionPenalty { get; }
 
         /// <summary>
         /// Pass "auto" to let the OpenAI service decide, "none" if none are to be called,
