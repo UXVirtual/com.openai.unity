@@ -32,7 +32,7 @@ namespace OpenAI.Chat
             string user = null,
             string instructionTemplate = null,
             string instructionTemplateStr = null,
-            bool? useSamplers = false,
+            bool useSamplers = false,
             string mode = null,
             string preset = null,
             string context = null,
@@ -177,7 +177,7 @@ namespace OpenAI.Chat
             int? maxTokens = null,
             int? number = null,
             double? presencePenalty = null,
-            ChatResponseFormat responseFormat = ChatResponseFormat.Text,
+            ChatResponseFormat? responseFormat = null,
             int? seed = null,
             string[] stops = null,
             double? temperature = null,
@@ -186,7 +186,7 @@ namespace OpenAI.Chat
             string user = null,
             string instructionTemplate = null,
             string instructionTemplateStr = null,
-            bool? useSamplers = null,
+            bool useSamplers = false,
             string mode = null,
             string preset = null,
             string context = null,
@@ -218,7 +218,7 @@ namespace OpenAI.Chat
             User = user;
             InstructionTemplate = instructionTemplate;
             InstructionTemplateStr = instructionTemplateStr;
-            UseSamplers = useSamplers;
+            UseSamplers = useSamplers ? useSamplers : null;
             Mode = mode;
             Preset = preset;
             Context = context;
