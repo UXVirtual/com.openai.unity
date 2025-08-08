@@ -204,7 +204,7 @@ namespace OpenAI.Models
         public static Model ChatGPT4o { get; } = new("chatgpt-4o-latest", "openai");
 
         /// <summary>
-        /// GPT-4o (“o” for “omni”) is our versatile, high-intelligence flagship model.
+        /// GPT-4o (ï¿½oï¿½ for ï¿½omniï¿½) is our versatile, high-intelligence flagship model.
         /// It accepts both text and image inputs, and produces text outputs (including Structured Outputs).
         /// It is the best model for most tasks, and is our most capable model outside of our o-series models.
         /// </summary>
@@ -215,7 +215,7 @@ namespace OpenAI.Models
         public static Model GPT4o { get; } = new("gpt-4o", "openai");
 
         /// <summary>
-        /// GPT-4o mini (“o” for “omni”) is a fast, affordable small model for focused tasks.
+        /// GPT-4o mini (ï¿½oï¿½ for ï¿½omniï¿½) is a fast, affordable small model for focused tasks.
         /// It accepts both text and image inputs, and produces text outputs (including Structured Outputs).
         /// It is ideal for fine-tuning, and model outputs from a larger model like GPT-4o can be distilled
         /// to GPT-4o-mini to produce similar results at lower cost and latency.
@@ -316,6 +316,24 @@ namespace OpenAI.Models
         /// Tokens are 2x the price of gpt-3.5-turbo. Will be updated with our latest model iteration.
         /// </summary>
         public static Model GPT3_5_Turbo_16K { get; } = new("gpt-3.5-turbo-16k", "openai");
+
+        /// <summary>
+        /// Designed for logic-heavy and multi-step tasks.
+        /// </summary>
+        /// <returns></returns>
+        public static Model GPT5 { get; } = new("gpt-5", "openai");
+
+        /// <summary>
+        /// Advanced, natural, multimodal, and context-aware conversations for enterprise applications
+        /// </summary>
+        /// <returns></returns>
+        public static Model GPT5_Chat { get; } = new("gpt-5-chat-latest", "openai");
+
+        /// <summary>
+        /// Optimized for speed, ideal for applications requiring low latency.
+        /// </summary>
+        /// <returns></returns>
+        public static Model GPT5_Nano { get; } = new("gpt-5-nano-2025-08-07", "openai");
 
         #endregion Chat Models
 
@@ -429,14 +447,14 @@ namespace OpenAI.Models
         public static Model GPT_Image_1 { get; } = new("gpt-image-1", "openai");
 
         /// <summary>
-        /// DALL·E is an AI system that creates realistic images and art from a natural language description.
-        /// DALL·E 3 currently supports the ability, given a prompt, to create a new image with a specific size.
+        /// DALLï¿½E is an AI system that creates realistic images and art from a natural language description.
+        /// DALLï¿½E 3 currently supports the ability, given a prompt, to create a new image with a specific size.
         /// </summary>
         public static Model DallE_3 { get; } = new("dall-e-3", "openai");
 
         /// <summary>
-        /// DALL·E is an AI system that creates realistic images and art from a natural language description.
-        /// Older than DALL·E 3, DALL·E 2 offers more control in prompting and more requests at once.
+        /// DALLï¿½E is an AI system that creates realistic images and art from a natural language description.
+        /// Older than DALLï¿½E 3, DALLï¿½E 2 offers more control in prompting and more requests at once.
         /// </summary>
         public static Model DallE_2 { get; } = new("dall-e-2", "openai");
 
